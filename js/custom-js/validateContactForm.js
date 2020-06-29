@@ -34,14 +34,20 @@ const validateFormFields = () => {
     if (valTypeStore.expected().test(this.value)) {
       this.nextElementSibling.textContent = "";
       formSubmitBtn.removeAttribute("disabled");
-    } else {
+    }else if(this.value === " " || valTypeStore.expected().test(this.value) === " "){
+      formSubmitBtn.setAttribute("disabled", "disabled");
+    }else if(fieldsToBeValidated.values === " "){
+      formSubmitBtn.setAttribute("disabled", "disabled", true);
+    }
+    else {
       this.nextElementSibling.textContent = ` ${valTypeStore.failureResponse}`;
       formSubmitBtn.setAttribute("disabled", "disabled");
     }
   }
   // validate();
 };
-
+// formSubmitBtn.addEventListener("click", validateFormFields);
 if (presentPageBody.classList.contains("contactFormBody")) {
   validateFormFields();
 }
+
